@@ -1,6 +1,6 @@
 <template>
-    <main class="container-fluid m-0 p-0">
-        <div class="row row-cols-5 g-3 ms_bg">
+    <main class="container-fluid g-0 ms_bg">
+        <div class="d-block d-sm-flex align-items-center flex-wrap m-auto ms_wi">
             <SingleCard v-for="disc in discList" :key="disc.id" :disc="disc"/>
         </div>
     </main>
@@ -43,7 +43,11 @@ export default {
 <style scoped lang="scss">
     @import '../style/general.scss';
     .ms_bg{
-            background-color: $my_bg_main;  
+            background-color: $my_bg_main;
+            .ms_wi{
+                width: 70%;
+                padding-top: 30px;
+            }
         }
 
 </style>
