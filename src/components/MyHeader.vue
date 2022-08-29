@@ -2,7 +2,7 @@
   <header class="container-fluid">
     <div class="row p-1 ms_bg align-items-center justify-content-between">
         <div class="col-2 pb-3 d-flex align-items-center">
-            <img class="" src="../assets/spotify.png" alt="logo-Spotify">
+            <img src="../assets/spotify.png" alt="logo-Spotify">
         </div>
         <div class="col-2">
             <select @click.prevent="$emit('effettuaRicerca', cercaGenere)" v-model="cercaGenere" class="form-select">
