@@ -1,9 +1,11 @@
 <template>
     <main class="container-fluid g-0 ms_bg">
         <LoadProgress v-if="loadProgress"/>
+        
         <div v-else class="d-block d-sm-flex align-items-center flex-wrap m-auto ms_wi">
-            <SingleCard v-for="disc in discList" :key="disc.id" :disc="disc"/>
+            <SingleCard v-for="disc in filterGenre" :key="disc.id" :disc="disc"/>
         </div>
+        
     </main>
 </template>
 
@@ -15,26 +17,47 @@ import LoadProgress from './LoadProgress.vue';
 
 export default {
     name: "MyMain",
+
     components: {
-    SingleCard,
-    LoadProgress
-},
+        SingleCard,
+        LoadProgress
+    },
+
     data(){
         return{
             discList: [],
             api: 'https://flynn.boolean.careers/exercises/api/array/music',
-            loadProgress: true 
+            loadProgress: true,
         }
     },
+
+    props:{
+        genereSelezionato: String    
+    },
+
     mounted(){
         this.getDiscMusic();
     },
+
+    computed:{
+        filterGenre(){
+            if(this.genereSelezionato == '' || this.genereSelezionato == 'All'){
+                return this.discList;
+            }else{
+                return this.discList.filter((item) =>{
+                    return item.genre.includes(this.genereSelezionato);
+                });
+            }
+        },
+    },
+
     methods:{
         getDiscMusic(){
             axios.get(this.api)
             .then(response =>{
                 // console.log(response);
                 this.discList = response.data.response;
+                console.log(this.discList)
                 this.loadProgress = false;
                 console.log(this.loadProgress)
             })
@@ -51,6 +74,8 @@ export default {
     @import '../style/general.scss';
     .ms_bg{
             background-color: $my_bg_main;
+            height: 90vh;
+            overflow-y: scroll;
             .ms_wi{
                 width: 70%;
                 padding-top: 30px;

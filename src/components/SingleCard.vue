@@ -1,7 +1,7 @@
 <template>
     <div class="d-flex flex-column text-center p-4 align-items-center ms_bg_card">
         <div class="ms_box">
-            <img class="" :src="disc.poster" :alt="disc.title"/>
+            <img :src="disc.poster" :alt="disc.title"/>
         </div>
         <div class="ms_h p-0">
             <h4 class="ms_color_1">{{disc.title}}</h4>

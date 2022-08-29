@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <MyHeader/>
-    <MyMain/>
+    <MyHeader @effettuaRicerca="genereAlbum" />
+    <MyMain :genereSelezionato="genereSelezionato" />
   </div>
 </template>
 
@@ -14,7 +14,17 @@ export default {
   components: {
     MyHeader,
     MyMain
-}
+  },
+  data(){
+    return{
+      genereSelezionato: ''
+    }
+  },
+  methods:{
+    genereAlbum(genere){
+      this.genereSelezionato = genere;
+    }
+  }
 }
 </script>
 
