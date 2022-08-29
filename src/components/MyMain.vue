@@ -5,7 +5,7 @@
         <div v-else class="d-block d-sm-flex align-items-center flex-wrap m-auto ms_wi">
             <SingleCard v-for="disc in filterGenre" :key="disc.id" :disc="disc"/>
         </div>
-        
+
     </main>
 </template>
 
@@ -29,10 +29,6 @@ export default {
             api: 'https://flynn.boolean.careers/exercises/api/array/music',
             loadProgress: true,
         }
-    },
-
-    props:{
-        genereSelezionato: String    
     },
 
     mounted(){
