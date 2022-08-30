@@ -3,7 +3,7 @@
         <LoadProgress v-if="loadProgress"/>
         
         <div v-else class="d-block d-sm-flex align-items-center flex-wrap m-auto ms_wi">
-            <SingleCard v-for="disc in filterGenre" :key="disc.id" :disc="disc"/>
+            <SingleCard v-for="disc in filterDisc" :key="disc.id" :disc="disc"/>
         </div>
 
     </main>
@@ -22,29 +22,39 @@ export default {
         SingleCard,
         LoadProgress
     },
+    
+    props:{
+        genereRicercato: String
+    },
+
+    computed:{
+        filterDisc(){
+            if(this.genereRicercato == ''){
+                return this.discList
+            }else{
+                const arrayDisc = this.discList.filter(disc =>{
+                    if(disc.genre == this.genereRicercato){
+                        return true;
+                    }else{
+                        return false
+                    }
+                });
+                return arrayDisc;
+            }
+        }
+    },
 
     data(){
         return{
             discList: [],
             api: 'https://flynn.boolean.careers/exercises/api/array/music',
             loadProgress: true,
+            genres:[]
         }
     },
 
     mounted(){
         this.getDiscMusic();
-    },
-
-    computed:{
-        filterGenre(){
-            if(this.genereSelezionato == '' || this.genereSelezionato == 'All'){
-                return this.discList;
-            }else{
-                return this.discList.filter((item) =>{
-                    return item.genre.includes(this.genereSelezionato);
-                });
-            }
-        },
     },
 
     methods:{
@@ -54,6 +64,15 @@ export default {
                 // console.log(response);
                 this.discList = response.data.response;
                 console.log(this.discList)
+
+                this.discList.forEach(disc =>{
+                    if(!this.genres.includes(disc.genre)){
+                        this.genres.push(disc.genre);
+                    }
+                });
+
+                this.$emit('genresReady', this.genres);
+
                 this.loadProgress = false;
                 console.log(this.loadProgress)
             })

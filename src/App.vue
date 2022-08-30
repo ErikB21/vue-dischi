@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <MyHeader @effettuaRicerca="genereAlbum" />
-    <MyMain :genereSelezionato="genereSelezionato" />
+    <MyHeader @changeGenre="iniziaRicerca" :genereSelezionato="genereSelezionato" />
+    <MyMain @genresReady="genereAlbum" :genereRicercato="genereRicercato" />
   </div>
 </template>
 
@@ -17,12 +17,16 @@ export default {
   },
   data(){
     return{
-      genereSelezionato: ''
+      genereSelezionato: [],
+      genereRicercato: ''
     }
   },
   methods:{
-    genereAlbum(genere){
-      this.genereSelezionato = genere;
+    genereAlbum(allGenere){
+      this.genereSelezionato = allGenere;
+    },
+    iniziaRicerca(genereRicercato){
+      this.genereRicercato = genereRicercato;
     }
   }
 }

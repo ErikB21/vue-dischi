@@ -5,12 +5,9 @@
             <img src="../assets/spotify.png" alt="logo-Spotify">
         </div>
         <div class="col-2">
-            <select @click.prevent="$emit('effettuaRicerca', cercaGenere)" v-model="cercaGenere" class="form-select">
-                <option selected>All</option>
-                <option value="Rock">Rock</option>
-                <option value="Pop">Pop</option>
-                <option value="Metal">Metal</option>
-                <option value="Jazz">Jazz</option>
+            <select v-model="selezionaGenere" @change.prevent="$emit('changeGenre', selezionaGenere)" class="form-select">
+                <option value="" selected>Seleziona un genere</option>
+                <option :value="genre" v-for="(genre,index) in genereSelezionato" :key="index">{{genre}}</option>        
             </select>
         </div>
     </div>
@@ -20,9 +17,12 @@
 <script>
 export default {
     name: 'MyHeader',
+    props:{
+        genereSelezionato: Array
+    },
     data(){
         return{
-            cercaGenere: ''
+            selezionaGenere: ''
         }
     }
 }
